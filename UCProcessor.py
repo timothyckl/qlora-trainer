@@ -25,7 +25,7 @@ class UCProcessor():
         return tokenized
     
     def _generate_prompt(self, conversation: list, eos_token: str) -> str:
-        out_str = f"{self.config['data']['system_header']}\n\n"
+        out_str = ""
 
         for idx, txt in enumerate(conversation):
             if idx % 2 != 0:

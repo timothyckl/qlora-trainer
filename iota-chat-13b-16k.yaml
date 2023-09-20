@@ -5,7 +5,6 @@ model_context_window: 16384  # if unspecified will use tokenizer.model_max_lengt
 data:
   type: ultrachat
   dataset: branles14/ultrachat-uncensored_full
-  system_header: "### System:\n"
   user_header: "### User:\n"
   response_header: "### Response:\n"
 lora:
