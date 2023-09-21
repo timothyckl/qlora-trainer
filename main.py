@@ -13,3 +13,8 @@ if __name__ == "__main__":
     trainer.load_base_model()
     trainer.train()
     trainer.merge_and_save()
+
+    print(f"""{'='*20}
+All operations completed!
+          
+{'='*20}""")

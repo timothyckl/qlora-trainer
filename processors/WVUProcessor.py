@@ -15,7 +15,7 @@ class WVUProcessor():
         data = load_dataset(self.config["data"]["dataset"])
         tokenized = data.map(lambda sample: self.tokenizer(
             self._generate_prompt(
-                sample["data"],
+                sample["conversations"],
                 self.tokenizer.eos_token),
             max_length=context_window,
             truncation=True,

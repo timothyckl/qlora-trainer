@@ -152,6 +152,8 @@ class QLoraTrainer():
         self.merged_model.save_pretrained(model_save_path)
         self.tokenizer.save_pretrained(model_save_path)
 
-    def push_to_hub(self):
+    def push_to_hub(self, repo_id):
         """ Push merged model to HuggingFace Hub """
-        raise NotImplementedError("use own account")
+        print("Uploading to HF...")
+        self.merged_model.push_to_hub(repo_id)
+        self.tokenizer.push_to_hub(repo_id)
