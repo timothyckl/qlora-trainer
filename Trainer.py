@@ -77,7 +77,7 @@ class QLoraTrainer():
             from processors.UCProcessor import UCProcessor
             self.data_processor = UCProcessor(self.config, self.tokenizer)
         elif dset_type == "vicuna":
-            from procesoors.WVUProcessor import WVUProcessor
+            from processors.WVUProcessor import WVUProcessor
             self.data_processor = WVUProcessor(self.config, self.tokenizer)
         # add more processors for diff datasets here
         else:
