@@ -1,10 +1,10 @@
-model_name: iota-chat-13b-16k
-base_model: conceptofmind/LLongMA-2-13b-16k
-model_family: llama  # if unspecified will use AutoModelForCausalLM/AutoTokenizer
-model_context_window: 16384  # if unspecified will use tokenizer.model_max_length
+model_name: iota-chat-3b-8k
+base_model: conceptofmind/Open-LLongMA-3b
+model_family: llama
+model_context_window: 8192
 data:
-  type: ultrachat
-  dataset: branles14/ultrachat-uncensored_full
+  type: vicuna
+  dataset: ehartford/wizard_vicuna_70k_unfiltered
   user_header: "### User:\n"
   response_header: "### Response:\n"
 lora:

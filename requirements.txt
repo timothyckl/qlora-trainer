@@ -8,3 +8,4 @@ loralib
 sentencepiece
 scipy
 peft
+protobuf==3.20.1

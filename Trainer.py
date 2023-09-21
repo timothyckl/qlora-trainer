@@ -73,7 +73,7 @@ class QLoraTrainer():
 
     def _setup_data_processor(self):
         if self.config["data"]["type"] == "ultrachat":
-            from UCProcessor import UCProcessor
+            from processors.UCProcessor import UCProcessor
             self.data_processor = UCProcessor(self.config, self.tokenizer)
         # add more processors for diff datasets here
         else:
