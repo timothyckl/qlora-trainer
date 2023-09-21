@@ -72,9 +72,13 @@ class QLoraTrainer():
         )
 
     def _setup_data_processor(self):
-        if self.config["data"]["type"] == "ultrachat":
+        dset_type = self.config["data"]["type"]
+        if dset_type == "ultrachat":
             from processors.UCProcessor import UCProcessor
             self.data_processor = UCProcessor(self.config, self.tokenizer)
+        elif dset_type == "vicuna":
+            from procesoors.WVUProcessor import WVUProcessor
+            self.data_processor = WVUProcessor(self.config, self.tokenizer)
         # add more processors for diff datasets here
         else:
             raise ValueError("Dataset type not specified in config.data.type")
