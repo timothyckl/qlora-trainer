@@ -5,6 +5,7 @@ from Trainer import QLoraTrainer
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("config_path", help="YAMLconfig file path")
+    parser.add_argument("repo_id", help="HF repo for model to be uploaded")
     args = parser.parse_args()
 
     cfg = read_config(args.config_path)
@@ -13,6 +14,7 @@ if __name__ == "__main__":
     trainer.load_base_model()
     trainer.train()
     trainer.merge_and_save()
+    trainer.push_to_hub(args.repo_id)
 
     print(f"""{'='*20}
 All operations completed!
