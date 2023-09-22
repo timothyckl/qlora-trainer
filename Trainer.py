@@ -79,6 +79,9 @@ class QLoraTrainer():
         elif dset_type == "vicuna":
             from processors.WVUProcessor import WVUProcessor
             self.data_processor = WVUProcessor(self.config, self.tokenizer)
+        elif dset_type == "orca":
+            from processors.OOProcessor import OOProcessor
+            self.data_processor = OOProcessor(self.config, self.tokenizer)
         # add more processors for diff datasets here
         else:
             raise ValueError("Dataset type not specified in config.data.type")
