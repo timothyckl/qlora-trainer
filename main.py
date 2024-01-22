@@ -1,6 +1,6 @@
 import argparse
 from utils import read_config
-from Trainer import QLoraTrainer
+from trainer import QLoraTrainer
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
