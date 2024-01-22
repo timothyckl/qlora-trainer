@@ -8,4 +8,5 @@ loralib
 sentencepiece
 scipy
 peft
+huggingface_hub
 protobuf==3.20.1
