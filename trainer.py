@@ -18,6 +18,7 @@ from transformers import (
     TrainingArguments
 )
 
+from datasets import load_dataset
 from trl import SFTTrainer
 
 class QLoraTrainer:
@@ -27,7 +28,7 @@ class QLoraTrainer:
         self.base_model = None
         self.adapter_model = None
         self.merged_model = None
-        self.data_processor = None
+        self.prompt_formatter = None 
 
     def load_base_model(self):
         print("Loading base model...")
@@ -69,7 +70,7 @@ class QLoraTrainer:
             if param.requires_grad:
                 trainable_params += param.numel()
         
-        trainable_pct = (trainable_params / all_param) * 100
+        trainable_pct = 100 * trainable_params / all_param 
         
         print(
             f"trainable params: {trainable_params} ({trainable_pct:.2%}) || all params: {all_param}" 
@@ -78,8 +79,10 @@ class QLoraTrainer:
     def _setup_data_processor(self):
         dset_type = self.config["data"]["type"]
         if dset_type == "alpaca":
-            from processors.GPT4AlpacaProcessor import GPT4AlpacaProcessor as Processor
-            self.data_processor = Processor(self.config, self.tokenizer)
+            # from processors.GPT4AlpacaProcessor import GPT4AlpacaProcessor as Processor
+            # self.data_processor = Processor(self.config, self.tokenizer)
+            from processors.GPT4AlpacaProcessor import prompt_formatter
+            self.prompt_formatter = prompt_formatter
         else:
             raise ValueError("Dataset type not specified in config.data.type")
 
@@ -100,9 +103,11 @@ class QLoraTrainer:
         #     model = self.adapter_model
         self._print_trainable_parameters(model)
 
-        print("Preprocessing dataset...")
-        self._setup_data_processor()
-        data = self.data_processor.get_data()
+        print("Downloading dataset...")
+        data = load_dataset(self.config["data"]["dataset"])
+
+        # self._setup_data_processor()
+        # data = self.data_processor.get_data()
 
         print("Training started...")
         config = self.config["trainer"]
@@ -128,7 +133,9 @@ class QLoraTrainer:
             train_dataset=data['train'],
             peft_config=peft_config,
             tokenizer=self.tokenizer,
-            args=train_args
+            formatting_func=self.prompt_formatter,
+            args=train_args,
+            data_collator=DataCollatorForLanguageModeling(tokenizer=self.tokenizer, mlm=False),
         )
 
         trainer.train()
