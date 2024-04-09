@@ -119,7 +119,8 @@ class QLoraTrainer:
             report_to="tensorboard",
             optim="adamw_torch",
             save_strategy="steps",
-            group_by_length=True
+            group_by_length=True,
+            disable_tqdm=True
         )
 
         trainer = SFTTrainer(
