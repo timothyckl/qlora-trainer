@@ -1,4 +1,7 @@
+trl
 torch
+tensorflow
+tensorboard
 transformers
 accelerate
 bitsandbytes
